@@ -6,10 +6,10 @@ categories: Hexo
 在Github page平台上，使用Hexo搭建属于自己的静态博客
 
 本系列分为以下几部分：
-* 基础配置篇
-* 发布更新篇
-* 主题配置篇
-* 标签分类篇
+* {% post_link Hexo+Github搭建个人博客(一) 一、基础配置篇 %}
+* {% post_link Hexo+Github搭建个人博客(二) 二、发布更新篇 %}
+* {% post_link Hexo+Github搭建个人博客(三) 三、主题配置篇 %}
+* {% post_link Hexo+Github搭建个人博客(四) 四、标签分类篇 %}
 
 
 ## 发布更新篇
