@@ -1,3 +1,4 @@
+<!--
 {% if page.comments %}
 
   {% if (theme.duoshuo and theme.duoshuo.shortname) or theme.duoshuo_shortname %}
@@ -67,5 +68,25 @@
       <div id="vcomments"></div>
     </div>
   {% endif %}
-
+  
 {% endif %}
+  -->
+  
+  
+  {% if page.comments %}
+	  <div class="comments" id="comments"></div>
+	    {% if (theme.valine and theme.valine.enable)%}
+	    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+	    <script src='/lib/valine/valine.min.js'></script>
+	    <script>
+	        new Valine({
+	            av: AV,
+	            el: '.comments' ,
+	            verify: false,
+	            app_id: '{{ theme.valine.appId }}',
+	            app_key: '{{ theme.valine.appKey }}',
+	            placeholder: '说点什么吧...'
+	        });
+	    </script>
+	    {% endif %}
+	{% endif %}

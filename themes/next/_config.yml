@@ -24,7 +24,7 @@ favicon:
   #apple_touch_icon: /images/apple-touch-icon-next.png
   #safari_pinned_tab: /images/logo.svg
   #android_manifest: /images/manifest.json
-  #ms_browserconfig: /images/browserconfig.xml
+  #ms_browser\nconfig: /images/browserconfig.xml
 
 # Set default keywords (Use a comma to separate)
 keywords: "Hexo, NexT"
@@ -86,8 +86,8 @@ index_with_subtitle: false
 menu:
   home: / || home
   categories: /categories/ || th
-  archives: /archives/ || archive
   tags: /tags/ || tags
+  archives: /archives/ || archive
   about: /about/ || user
   #schedule: /schedule/ || calendar
   #sitemap: /sitemap.xml || sitemap
@@ -346,7 +346,7 @@ han: false
 #swiftype_key:
 
 # Baidu Analytics ID
-#baidu_analytics:
+baidu_analytics: 63759ba7e70b9a5777c98bac4fd08a5f
 
 # Duoshuo ShortName
 #duoshuo_shortname:
@@ -354,7 +354,7 @@ han: false
 # Disqus
 disqus:
   enable: false
-  shortname:
+  shortname: senior
   count: true
 
 # Hypercomments
@@ -371,12 +371,12 @@ changyan:
 # You can get your appid and appkey from https://leancloud.cn
 # more info please open https://github.com/xCss/Valine
 valine:
-  enable: false
-  appid:  # your leancloud application appid
-  appkey:  # your leancloud application appkey
+  enable: true
+  appid: Qqo6hRvrjzPcFnNvcxFcnQVh-gzGzoHsz
+  appkey: CPghDGHPg6TWDR9i1LvfyDzq
   notify: false # mail notifier , https://github.com/xCss/Valine/wiki
   verify: false # Verification code
-  placeholder: Comment input placeholder
+  placeholder: 畅所欲言...
 
 # Support for youyan comments system.
 # You can get your uid from http://www.uyan.cc
@@ -406,7 +406,7 @@ gitment:
 # Available value:
 #    button | slide
 # Warning: Baidu Share does not support https.
-#baidushare:
+# baidushare: 
 ##  type: button
 
 # Share
@@ -450,7 +450,7 @@ needmoreshare2:
 
 # Google Webmaster tools verification setting
 # See: https://www.google.com/webmasters/
-#google_site_verification:
+google_site_verification: TbBkv2pXlelZI-oez8AnjBRRvenhCOnKjV4bhwSE06
 
 # Google Analytics
 #google_analytics:
@@ -519,9 +519,9 @@ rating:
 # Show number of visitors to each article.
 # You can visit https://leancloud.cn get AppID and AppKey.
 leancloud_visitors:
-  enable: false
-  app_id: #<app_id>
-  app_key: #<app_key>
+  enable: true
+  app_id: Qqo6hRvrjzPcFnNvcxFcnQVh-gzGzoHsz
+  app_key: CPghDGHPg6TWDR9i1LvfyDzq
 
 # Show PV/UV of the website/page with busuanzi.
 # Get more information on http://ibruce.info/2015/04/04/busuanzi/
@@ -582,7 +582,7 @@ algolia_search:
 # Local search
 # Dependencies: https://github.com/flashlab/hexo-generator-search
 local_search:
-  enable: false
+  enable: true
   # if auto, trigger search by changing input
   # if manual, trigger search by pressing enter key or search button
   trigger: auto

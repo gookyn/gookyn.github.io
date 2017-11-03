@@ -3,7 +3,10 @@ title: Hexo+Github 搭建个人博客 （一）
 tags: Hexo
 categories: Hexo
 ---
+
+{% note warning %}
 在Github page平台上，使用Hexo搭建属于自己的静态博客
+{% endnote %}
 
 本系列分为以下几部分：
 * {% post_link Hexo+Github搭建个人博客(一) 一、基础配置篇 %}
@@ -126,4 +129,6 @@ hexo s -g
 * 停止运行
 Ctrl + C 即可
 
-> 本地所有配置完成后，下一步我们尝试发布博客
+{% note warning %}
+本地所有配置完成后，下一步我们尝试发布博客
+{% endnote %}

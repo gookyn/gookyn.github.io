@@ -3,7 +3,10 @@ title: Hexo+Github 搭建个人博客 （三）
 tags: Hexo
 categories: Hexo
 ---
+
+{% note warning %}
 在Github page平台上，使用Hexo搭建属于自己的静态博客
+{% endnote %}
 
 本系列分为以下几部分：
 * {% post_link Hexo+Github搭建个人博客(一) 一、基础配置篇 %}
@@ -14,14 +17,16 @@ categories: Hexo
 
 ## 主题配置篇
 
-> Hexo初始化之后默认的主题是 landscape，可以在 [Hexo 主题](https://hexo.io/themes/) 找自己喜欢的，我选的是  Next 主题，简单优雅
+{% note warning %}
+Hexo初始化之后默认的主题是 landscape，可以在 [Hexo 主题](https://hexo.io/themes/) 找自己喜欢的，我选的是  Next 主题，简单优雅
+{% endnote %}
 
 ### 安装 Next
 下载并拷贝主题文件到站点目录的 themes 目录下，然后修改配置文件
 
 ### 启用主题
 
-打开 __站点配置文件__（根目录下的 _config.yml 文件），修改
+打开 __站点配置文件__（根目录下的 _config.yml 文件），修改（theme 的值与下载的主题文件夹名字相同即可，此处为了方便直接改用 next）
 
 ```
 theme: next
@@ -72,7 +77,10 @@ author: 自己的大名啦
 language: zh-Hans
 timezone: 
 ```
-> 将 language 设置成所需要的语言（如简体中文）。
+
+{% note warning %}
+将 language 设置成所需要的语言（如简体中文）。
+{% endnote %}
 
 ### 设置菜单
 * 设定菜单内容，编辑 __主题配置文件__，对应的字段是 menu
@@ -138,5 +146,9 @@ avatar: /uploads/avatar.png
 avatar: /images/avatar.png
 ```
 
-> 整个界面已经清爽很多，更多个性化设置就得自己探索咯...
+整个界面已经清爽很多，更多个性化设置就得自己探索咯...
+
+{% note warning %}
+关于 next 主题的更多配置，可以访问 [next](http://theme-next.iissnan.com/)
+{% endnote %}
 
