@@ -23,6 +23,8 @@ cnpm install -g vue-cli
 vue -V (在此注意V为大写)
 ```
 
+<!-- more -->
+
 ## 构建 vue 项目
 选定要存放 vue 项目的位置，在命令行窗口进入该目录，初始化项目（demo 是项目的名称）
 ```

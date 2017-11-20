@@ -22,6 +22,8 @@ categories: Hexo
 * 安装：下载完成后双击安装，一路next，在Custom Setup这一步记得选 ` Add to PATH ` ，自动配置环境变量
 * 查看版本：安装完成后，打开命令行窗口  ` node -v ` 查看版本
 
+<!-- more -->
+
 ### 安装 Git
 * 下载：[Git官网](https://git-scm.com/download/)
 * 安装：一路next，在添加环境变量一步注意选择相对应系统

@@ -20,6 +20,8 @@ categories: Hexo
 ### 新建文章
 * 在 /source/_posts/ 文件夹下手动新建md文件，或者输入以下命令自动生成（位置：/source/_posts/）
 
+<!-- more -->
+
 ```
 hexo new "hello"
 ```

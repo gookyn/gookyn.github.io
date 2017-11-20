@@ -26,6 +26,8 @@ git push origin master	提交到远程主分支
 git checkout test	切换回本地自己分支
 ```
 
+<!-- more -->
+
 ## 强制覆盖本地文件
 ```
 git fetch --all  
@@ -36,6 +38,12 @@ git pull origin master
 ## 回退到某个版本
 ```
 git reset --hard 版本号
+```
+
+## Git远程仓库管理
+```
+git remote add origin git@ github.com:yourname/yoursite.git  设置远程仓库地址
+git push -u origin master  客户端首次提交
 ```
 
 ## 取消多次输入账号密码

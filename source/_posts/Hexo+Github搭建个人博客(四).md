@@ -19,6 +19,8 @@ categories: Hexo
 ### 添加标签
 在前面，我们修改过 next 主题下 _config.yml 文件中的menu选项，添加了标签选项，但点击发现是个未找到的页面，慌不？
 
+<!-- more -->
+
 * 新建标签页面
 命令行进入 blog 文件夹，输入以下命令，完成后会看到 blog/source 目录下新建了 tags 文件夹，以及其下的 index.md 文件
 ```

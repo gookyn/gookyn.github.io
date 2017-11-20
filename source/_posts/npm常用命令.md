@@ -21,6 +21,8 @@ npm install <name>@版本号
 npm install <name> -g  
 ```
 
+<!-- more -->
+
 * 安装的同时，将信息写入package.json中
 如果项目路径中有package.json文件，直接使用npm install方法就可以根据 dependencies 配置安装所有的依赖包
 ```
