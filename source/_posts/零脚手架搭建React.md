@@ -4,7 +4,8 @@ tags: React
 categories: React
 ---
 
-## 基本配置
+[react-todo](https://github.com/liujinge/react-todo)
+
 ### 开发环境
 在搭建过程中，可以使用 npm 构建依赖。因此首先需要 [node.js](https://nodejs.org/zh-cn/)，直接下载安装即可。
 

@@ -1,6 +1,6 @@
 ---
 title: 前端开发中 Chrome 跨域设置
-tags: 浏览器
+tags: [浏览器,跨域]
 categories: 浏览器
 ---
 {% note warning %}
