@@ -1,21 +1,17 @@
 ---
-title: React项目搭建（一）
+title: 零脚手架搭建 React
 tags: React
 categories: React
 ---
 
-{% note warning %}
-最近想从零搭建一个  React 项目，想着对 React 多了解一下，就没有采用脚手架，然后，就痛并快乐了...
-{% endnote %}
-
 ## 基本配置
 ### 开发环境
-在搭建过程中，可以使用 npm 构建依赖。因此首先需要[node.js](https://nodejs.org/zh-cn/)，直接下载安装即可。
+在搭建过程中，可以使用 npm 构建依赖。因此首先需要 [node.js](https://nodejs.org/zh-cn/)，直接下载安装即可。
 
 ### 新建项目
 新建一个项目，结构如下：
 
-![](/images/React项目搭建/项目结构-初始化.png)
+![](/images/零脚手架搭建React/项目结构-初始化.png)
 
 <!-- more -->
 
@@ -51,7 +47,7 @@ npm init
 ```
 执行过程中需要输入基本信息，也可以一路默认回车
 
-![](/images/React项目搭建/init.png)
+![](/images/零脚手架搭建React/init.png)
 
 完成后即可在根目录中看到
 
