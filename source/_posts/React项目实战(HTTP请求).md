@@ -1,0 +1,119 @@
+---
+title: React项目实战（HTTP 请求）
+tags: React
+categories: React
+---
+
+[React 项目实战](https://github.com/liujinge/react-kaka)，持续完善中...
+* {% post_link React项目实战(基础配置) 基础配置 %}
+* {% post_link React项目实战(UI组件) UI组件 %}
+* {% post_link React项目实战(SCSS配置) SCSS配置 %}
+* {% post_link React项目实战(路由配置) 路由配置 %}
+* {% post_link React项目实战(HTTP请求) HTTP请求 %}
+
+---
+
+## HTTP 请求
+
+React 并没有提供获取数据的方式，因此需要自己封装 Ajax 或者引入 HTTP 库。
+
+目前有很多这类型的库，各有特色，但实现的功能却大同小异。
+
+这里我引用的是 `axios`。
+
+### 安装
+```
+npm install axios --save
+```
+
+<!-- more -->
+
+### 引入
+```
+import axios from 'axios';
+```
+
+### 使用
+常用的使用方式：
+
+```
+axios.get(url[, config])
+
+axios.post(url[, data[, config]])
+```
+
+config：请求的基本配置，比如请求头，baseURL等
+
+### 示例
+实际中，一般要对 `axios` 进行封装，直接得到需要的数据。
+
+比如新建 axios/index.js 文件并做简单配置：
+
+```
+import axios from 'axios';
+
+function errHandler(error) {
+
+}
+
+let xhr = ({
+  method = 'get',
+  url,
+  options = {},
+  headers = {},
+  emulateJSON = true
+}) => {
+  let p;
+  switch(method) {
+    case 'get':
+      p = new Promise(function(resolve, reject) {
+        axios.get(url, {
+          params: options
+        }).then(function(response) {
+          resolve(response.data);
+        }, function(response) {
+          errHandler(response);
+        });
+      });
+      break;
+    case 'post':
+      p = new Promise(function(resolve, reject) {
+        axios.post(url, options, {
+          headers,
+          emulateJSON
+        }).then(function(response) {
+          resolve(response.data);
+        }, function(response) {
+          errHandler(response);
+        });
+      });
+      break;
+    default:
+      p = null;
+  }
+
+  return p;
+}
+
+export default xhr;
+```
+
+之后可以在需要请求的地方引入并调用，关键代码如下：
+
+```
+import xhr from './../../axios';
+
+-----
+
+componentWillMount() {
+    // 默认get请求
+    xhr({
+      url: 'yourUrl',
+    }).then((res) => {
+      console.log(res)
+    })
+}
+```
+
+更多的配置，根据 [axios api](https://www.npmjs.com/package/axios) 以及项目需求不断完善就好。
+

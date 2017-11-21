@@ -4,7 +4,16 @@ tags: React
 categories: React
 ---
 
-[react-kaka](https://github.com/liujinge/react-kaka)
+[React 项目实战](https://github.com/liujinge/react-kaka)，持续完善中...
+* {% post_link React项目实战(基础配置) 基础配置 %}
+* {% post_link React项目实战(UI组件) UI组件 %}
+* {% post_link React项目实战(SCSS配置) SCSS配置 %}
+* {% post_link React项目实战(路由配置) 路由配置 %}
+* {% post_link React项目实战(HTTP请求) HTTP请求 %}
+
+---
+
+## 基础配置
 
 ### 安装 node
 下载并安装 [node.js](https://nodejs.org/zh-cn/)
