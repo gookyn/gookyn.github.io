@@ -28,7 +28,7 @@
 这个插件可以帮助我们检测webpack打包过程中的构建速度，比如可以看到plugins、loaders等的执行时间，以更明确地将精力集中在需要优化的地方。
 
 
-![打包速度检测.png](https://cdn.nlark.com/yuque/0/2021/png/12735713/1615127239582-c0d355a3-f1e7-479c-8955-2c3c4dd83a28.png#align=left&display=inline&height=597&margin=%5Bobject%20Object%5D&name=%E6%89%93%E5%8C%85%E9%80%9F%E5%BA%A6%E6%A3%80%E6%B5%8B.png&originHeight=597&originWidth=412&size=18696&status=done&style=shadow&width=412)
+![打包速度检测.png](https://cdn.nlark.com/yuque/0/2021/png/12735713/1615127239582-c0d355a3-f1e7-479c-8955-2c3c4dd83a28.png)
 
 
 配置过程很简单，就是一个webpack插件，安装依赖，引用并配置就可以：
@@ -75,7 +75,7 @@ OK，执行一下build命令就可以看到效果了！
 打包可视化分析，这个插件可以直观地看到打包后的文件有哪些、文件大小、模块包含关系、依赖项等等，针对这些，我们可以进行文件拆分和合并，非常方便。
 
 
-![优化前可视化.jpg](https://cdn.nlark.com/yuque/0/2021/jpeg/12735713/1615127287767-d2a29525-3f3d-40c2-9436-e113e57ec5f8.jpeg#align=left&display=inline&height=937&margin=%5Bobject%20Object%5D&name=%E4%BC%98%E5%8C%96%E5%89%8D%E5%8F%AF%E8%A7%86%E5%8C%96.jpg&originHeight=937&originWidth=1920&size=341613&status=done&style=shadow&width=1920)
+![优化前可视化.jpg](https://cdn.nlark.com/yuque/0/2021/jpeg/12735713/1615127287767-d2a29525-3f3d-40c2-9436-e113e57ec5f8.jpeg)
 
 
 配置方法如下：
@@ -599,7 +599,7 @@ module.exports = {
 
 
 运行效果如图，可以看到正在运行的进程数：
-![进程数.png](https://cdn.nlark.com/yuque/0/2021/png/12735713/1615127402147-967c7f93-7fdd-432e-af3b-538e493039cc.png#align=left&display=inline&height=146&margin=%5Bobject%20Object%5D&name=%E8%BF%9B%E7%A8%8B%E6%95%B0.png&originHeight=146&originWidth=637&size=8635&status=done&style=shadow&width=637)
+![进程数.png](https://cdn.nlark.com/yuque/0/2021/png/12735713/1615127402147-967c7f93-7fdd-432e-af3b-538e493039cc.png)
 
 ---
 
@@ -613,9 +613,11 @@ OK，到这里，优化的配置基本就完成了！
 
 
 
-![webpack4优化.jpg](https://cdn.nlark.com/yuque/0/2021/jpeg/12735713/1615127436238-25ce7a9f-5fe3-45cd-aedd-18982d0e6403.jpeg#align=left&display=inline&height=819&margin=%5Bobject%20Object%5D&name=webpack4%E4%BC%98%E5%8C%96.jpg&originHeight=819&originWidth=972&size=61866&status=done&style=shadow&width=972)
-![打包后的文件1.png](https://cdn.nlark.com/yuque/0/2021/png/12735713/1615127469973-47d57c90-0b7d-427a-a468-2dd486f259a9.png#align=left&display=inline&height=188&margin=%5Bobject%20Object%5D&name=%E6%89%93%E5%8C%85%E5%90%8E%E7%9A%84%E6%96%87%E4%BB%B61.png&originHeight=188&originWidth=632&size=11554&status=done&style=shadow&width=632)
-![打包后的文件2.png](https://cdn.nlark.com/yuque/0/2021/png/12735713/1615127482836-d5fedb56-c1da-451c-86b8-670d87045511.png#align=left&display=inline&height=163&margin=%5Bobject%20Object%5D&name=%E6%89%93%E5%8C%85%E5%90%8E%E7%9A%84%E6%96%87%E4%BB%B62.png&originHeight=163&originWidth=645&size=12403&status=done&style=shadow&width=645)
+![webpack4优化.jpg](https://cdn.nlark.com/yuque/0/2021/jpeg/12735713/1615127436238-25ce7a9f-5fe3-45cd-aedd-18982d0e6403.jpeg)
+
+![打包后的文件1.png](https://cdn.nlark.com/yuque/0/2021/png/12735713/1615127469973-47d57c90-0b7d-427a-a468-2dd486f259a9.png)
+
+![打包后的文件2.png](https://cdn.nlark.com/yuque/0/2021/png/12735713/1615127482836-d5fedb56-c1da-451c-86b8-670d87045511.png)
 
 ---
 
@@ -681,7 +683,7 @@ output: {
 
 
 - 修改出现问题的js中css文件顺序
-- 如果无法修改，可以考虑关闭警告。配置 `stats` 去掉警告，stats文档：[https://webpack.js.org/configuration/stats/#stats](https://webpack.js.org/configuration/stats/#stats)
+- 如果无法修改，可以考虑关闭警告。配置 `stats` 去掉警告，[stats文档](https://webpack.js.org/configuration/stats/#stats)
 
 
 
