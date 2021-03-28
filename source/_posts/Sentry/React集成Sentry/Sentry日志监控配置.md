@@ -1,0 +1,119 @@
+---
+title: Sentry日志监控配置
+tags: Sentry
+categories: Sentry
+---
+
+## 一、前言
+在软件开发中，对于后端技术来说，标准已经非常统一，各类监控服务已经相当成熟稳定；但是对于前端来说，各类标准此消彼长，框架层出不穷，客户端的代码越来越复杂，导致用户端的错误极其不可预期。
+
+
+当下阶段，没有统一的日志平台，线上故障很难及时报警，定位前端bug就是 `console` 、`alert`、`debug`，效率太低；同时，移动端飞速发展，对于性能的要求越来越高，我们希望看到所有页面的接口请求、资源加载、页面渲染情况，还需要根据机型、系统做兼容性方案。那就需要一套完善的监控系统。
+
+
+## 二、简介
+[Sentry](https://docs.sentry.io/)，是一个开源的实时日志监控平台，主要可用于监控错误日志、快速定位线上bug、监测性能等。
+支持 Java、PHP、Python、JavaScript 等前后端主流编程语言，也可应用于前端主流框架，如 React、Vue 、Angular 等。
+
+
+![sentry.png](https://cdn.nlark.com/yuque/0/2021/png/12735713/1616856747456-f9fcd78a-7d0e-41d1-863b-268609f929f2.png#align=left&display=inline&height=969&margin=%5Bobject%20Object%5D&name=sentry.png&originHeight=969&originWidth=1905&size=111720&status=done&style=shadow&width=1905)
+
+
+以下主要介绍Sentry在React项目中的应用。
+
+
+## 三、创建项目
+首先在 Sentry 组织中创建一个 React 项目：
+
+- 进入组织 - 项目 - 创建项目
+- 选择一个平台，这里我们选择 React
+- 先不用配置提醒设置，可以在创建之后再更改
+- 修改项目名称
+- 创建项目
+- 完成后可以在项目面板看到创建好的项目
+
+![创建项目1.png](https://cdn.nlark.com/yuque/0/2021/png/12735713/1616857303187-f0fb89b5-2ca6-4f00-acee-b2884dbb6d21.png#align=left&display=inline&height=969&margin=%5Bobject%20Object%5D&name=%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE1.png&originHeight=969&originWidth=1906&size=294762&status=done&style=shadow&width=1906)![创建项目2.png](https://cdn.nlark.com/yuque/0/2021/png/12735713/1616857311251-fdcde370-e000-4a41-b40a-62130f70ab07.png#align=left&display=inline&height=967&margin=%5Bobject%20Object%5D&name=%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE2.png&originHeight=967&originWidth=1900&size=446388&status=done&style=shadow&width=1900)
+## 四、配置异常监控
+### 安装React依赖
+```shell
+$ yarn add @sentry/react -S
+```
+
+
+### 初始化配置
+在入口文件中引入，并初始化配置
+
+
+```javascript
+import * as Sentry from '@sentry/react'; // sentry监控
+
+// 初始化
+Sentry.init({
+  dsn: '', //（必填）上报地址
+  environment: 'production', //（可选）设置环境，可用于筛选不同环境
+  release: 'v1.0.0', //（可选）设置版本号
+  tracesSampleRate: 1.0, //（可选）配置事件的采样率，范围为0.0至1.0，默认值是1.0指发送100％的错误事件
+});
+```
+
+
+注意参数 `dsn` ：指上报地址，每个项目不同。如果未提供此值，SDK将尝试从 `SENTRY_DSN`  环境变量中读取；如果该变量也不存在，则不会发送任何事件。
+
+
+dsn 的查找方法：sentry平台 - 对应的项目 - 设置 - Client Keys（DSN） - DSN
+![DSN.png](https://cdn.nlark.com/yuque/0/2021/png/12735713/1616858820020-fd93bb1b-47ab-4762-bee8-5cfc845f6b9b.png#align=left&display=inline&height=968&margin=%5Bobject%20Object%5D&name=DSN.png&originHeight=968&originWidth=1899&size=219742&status=done&style=shadow&width=1899)
+
+
+### 验证
+初始化完成后，模拟一个异常，可以看到发送了 `?sentry_key=xxx` 请求，同时sentry平台有错误日志，证明异常监控已配置成功。
+![模拟报错1.png](https://cdn.nlark.com/yuque/0/2021/png/12735713/1616858840217-fe092b14-fa6d-43ce-8fbf-f23dc31842db.png#align=left&display=inline&height=114&margin=%5Bobject%20Object%5D&name=%E6%A8%A1%E6%8B%9F%E6%8A%A5%E9%94%991.png&originHeight=114&originWidth=615&size=6892&status=done&style=shadow&width=615)![模拟报错2.png](https://cdn.nlark.com/yuque/0/2021/png/12735713/1616858852863-98b15190-a47f-4d5e-af38-3d6a0fe9922c.png#align=left&display=inline&height=937&margin=%5Bobject%20Object%5D&name=%E6%A8%A1%E6%8B%9F%E6%8A%A5%E9%94%992.png&originHeight=937&originWidth=1920&size=145017&status=done&style=shadow&width=1920)![模拟报错3.png](https://cdn.nlark.com/yuque/0/2021/png/12735713/1616858860057-d08e6e1b-a96d-4e5b-b5fb-b11aaa08641a.png#align=left&display=inline&height=804&margin=%5Bobject%20Object%5D&name=%E6%A8%A1%E6%8B%9F%E6%8A%A5%E9%94%993.png&originHeight=804&originWidth=1742&size=86586&status=done&style=shadow&width=1742)![模拟报错4.png](https://cdn.nlark.com/yuque/0/2021/png/12735713/1616858961963-74531326-9bd1-4a06-a29f-6585f8267abd.png#align=left&display=inline&height=792&margin=%5Bobject%20Object%5D&name=%E6%A8%A1%E6%8B%9F%E6%8A%A5%E9%94%994.png&originHeight=792&originWidth=1920&size=198616&status=done&style=shadow&width=1920)![模拟报错5.png](https://cdn.nlark.com/yuque/0/2021/png/12735713/1616858875999-61a90973-bce3-4bc1-a487-91208bf37869.png#align=left&display=inline&height=937&margin=%5Bobject%20Object%5D&name=%E6%A8%A1%E6%8B%9F%E6%8A%A5%E9%94%995.png&originHeight=937&originWidth=1899&size=270460&status=done&style=shadow&width=1899)
+
+
+## 五、设置日志信息
+异常监控配置完成之后，可以自行配置日志信息，以满足查询、筛选等需要。
+
+
+### 设置上下文信息
+用于将任意数据附加到事件。
+
+
+```javascript
+Sentry.setContext('runtimeEnv', {
+  envName: '运行环境名',
+});
+```
+
+
+### 设置用户信息
+用于识别用户身份。
+
+
+```javascript
+Sentry.setUser({
+  username: '用户姓名',
+  corpName: '用户所在企业',
+});
+```
+
+
+### 设置标签
+标签是既可索引又可搜索的键/值字符串对，可用于过滤器和标签分布图，还可以快速访问相关事件，并查看一组事件的标签分布。
+
+
+```javascript
+Sentry.setTag('appName', '应用名');
+```
+![tags.png](https://cdn.nlark.com/yuque/0/2021/png/12735713/1616859020891-bf130c82-a431-4e94-be4d-480059824b98.png#align=left&display=inline&height=160&margin=%5Bobject%20Object%5D&name=tags.png&originHeight=319&originWidth=1197&size=15664&status=done&style=shadow&width=599)
+
+
+### 参考文档
+
+- Sentry：[https://docs.sentry.io/product/sentry-basics/](https://docs.sentry.io/product/sentry-basics/)
+- Sentry For React：[https://docs.sentry.io/platforms/javascript/guides/react/](https://docs.sentry.io/platforms/javascript/guides/react/)
+- @sentry/webpack-plugin：[https://www.npmjs.com/package/@sentry/webpack-plugin](https://www.npmjs.com/package/@sentry/webpack-plugin)
+- webpack devtool：[https://webpack.js.org/configuration/devtool/#root](https://webpack.js.org/configuration/devtool/#root)
+
+
+
+
+

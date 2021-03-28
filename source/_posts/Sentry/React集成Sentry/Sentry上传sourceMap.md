@@ -1,0 +1,197 @@
+---
+title: Sentry上传sourceMap
+tags: Sentry
+categories: Sentry
+---
+
+前端项目部署到服务器时，都执行了代码编译、压缩。Sentry 在捕获到异常之后，错误提示永远是第1行xxxxx列。如果需要定位到错误原因，则需要上传 sourceMap 文件。
+![sourceMap失败.png](https://cdn.nlark.com/yuque/0/2021/png/12735713/1616859367618-cd91a100-c3e6-4aae-96eb-8c42995c1e2c.png#align=left&display=inline&height=937&margin=%5Bobject%20Object%5D&name=sourceMap%E5%A4%B1%E8%B4%A5.png&originHeight=937&originWidth=1902&size=261205&status=done&style=shadow&width=1902)
+
+
+## 一、生成 .map 文件
+配置webpack：
+```javascript
+// webpack.prod.js
+{
+  devtool: 'source-map',
+  ...
+  optimization: {
+  	minimizer: [
+      new UglifyJsPlugin({
+      	sourceMap: true,
+        ...
+      })
+    ]
+  }
+}
+```
+这里需要注意：
+
+- `devtool` 类型：
+   - `eval-`：仅用于 development 环境
+   - `inline-`：会打包到js文件中，导致文件过大
+   - `cheap-source-map`：只能提示错误在某一行
+   - `source-map`：生成完整的 .map 文件
+- `uglifyjs`：
+   - 如果使用了 uglifyjs-webpack-plugin 插件，需要打开设置
+
+
+
+本地build，可以看到生成 .map 文件！
+![map文件.png](https://cdn.nlark.com/yuque/0/2021/png/12735713/1616859081152-a0737b47-6230-4be4-ac26-ad5b0f266df2.png#align=left&display=inline&height=263&margin=%5Bobject%20Object%5D&name=map%E6%96%87%E4%BB%B6.png&originHeight=263&originWidth=889&size=27596&status=done&style=shadow&width=889)
+
+
+## 二、配置 sourceMap 上传插件
+### 安装依赖
+```shell
+$ yarn add @sentry/webpack-plugin -D
+```
+#### 
+### webpack插件配置
+```javascript
+ // webpack.prod.js
+const SentryWebpackPlugin = require("@sentry/webpack-plugin");
+
+module.exports = {
+  plugins: [
+    ...
+    // sentry上传sourceMap，注意将该插件设置为最后一个正在运行的插件，否则，该插件收到的结果源地图可能不是最后一个。
+    new SentryWebpackPlugin({
+      authToken: 'your-token',
+      url: 'your-url',
+      org: 'your-org-name',
+      project: 'your-project-name',
+      include: './dist',
+      ignore: ['node_modules'],
+      release: 'v1.0.0',
+      urlPrefix: '~/',
+    }),
+  ],
+};
+```
+
+
+### 参数解释
+#### `authToken`
+用于与Sentry进行所有通信的身份验证令牌，每个账号都有自己的`authToken`，权限不同。查找方式：点击头像 - API Keys，可以看到自己的token；如果没有，直接创建一个。
+![authToken.png](https://cdn.nlark.com/yuque/0/2021/png/12735713/1616859115303-956c41c1-95e6-440d-87f9-a59600259924.png#align=left&display=inline&height=967&margin=%5Bobject%20Object%5D&name=authToken.png&originHeight=967&originWidth=1904&size=157088&status=done&style=shadow&width=1904)![创建authToken.png](https://cdn.nlark.com/yuque/0/2021/png/12735713/1616859138078-d05a8d70-4a4b-4bba-9063-69a171f7d361.png#align=left&display=inline&height=969&margin=%5Bobject%20Object%5D&name=%E5%88%9B%E5%BB%BAauthToken.png&originHeight=969&originWidth=1904&size=186095&status=done&style=shadow&width=1904)
+#### `url`
+Sentry实例的基本URL。默认为`[https://sentry.io/](https://sentry.io/)`，如果是自建服务，这里设置成自己的服务域名。
+#### `org`
+组织名，用于上传到对应的组织，查找方式：组织 - 设置 - General Settings，注意是 Organization Slug，而不是 Display Name
+![org.png](https://cdn.nlark.com/yuque/0/2021/png/12735713/1616859170311-0a9b799e-6e5d-4c54-9611-026897990662.png#align=left&display=inline&height=969&margin=%5Bobject%20Object%5D&name=org.png&originHeight=969&originWidth=1900&size=221198&status=done&style=shadow&width=1900)
+#### `project`
+项目名，作用同上，查找方式：其实就是项目列表中的名称，不信？对应项目 - 设置 - General Settings，一样不~
+![project.png](https://cdn.nlark.com/yuque/0/2021/png/12735713/1616859196001-9cb716ae-0bcb-4c14-9404-777ffc51a705.png#align=left&display=inline&height=969&margin=%5Bobject%20Object%5D&name=project.png&originHeight=969&originWidth=1902&size=223147&status=done&style=shadow&width=1902)
+#### `include`
+查找.map文件的目录，比如 `./dist`
+#### `ignore`
+忽略的文件或目录，默认`['node_modules']`
+#### `release`
+版本号，这里注意：
+
+- 需要和初始化 init 设置的版本号一致：`release: 'v1.0.0', //（可选）设置版本号`
+- 如果有多个项目，给版本号加前缀 `xxx@` ，可以上传到对应项目
+#### `urlPrefix`
+添加在所有文件名的前缀，默认`~/`，具体路径可以匹配自己项目打包后的服务器目录。（一定要配置正确）
+
+
+## 三、验证上传结果
+![sourceMap成功1.png](https://cdn.nlark.com/yuque/0/2021/png/12735713/1616859401139-83b5e65d-a085-4a90-9c6f-a16bb8d23de1.png#align=left&display=inline&height=929&margin=%5Bobject%20Object%5D&name=sourceMap%E6%88%90%E5%8A%9F1.png&originHeight=929&originWidth=1904&size=187733&status=done&style=shadow&width=1904)![sourceMap成功2.png](https://cdn.nlark.com/yuque/0/2021/png/12735713/1616859409286-81d9a18f-6e04-4a76-8da3-11a6f287dd79.png#align=left&display=inline&height=924&margin=%5Bobject%20Object%5D&name=sourceMap%E6%88%90%E5%8A%9F2.png&originHeight=924&originWidth=1868&size=307394&status=done&style=shadow&width=1868)![sourceMap成功3.png](https://cdn.nlark.com/yuque/0/2021/png/12735713/1616859413544-24d58a1b-01fa-49a3-80af-8566ef0a06ad.png#align=left&display=inline&height=937&margin=%5Bobject%20Object%5D&name=sourceMap%E6%88%90%E5%8A%9F3.png&originHeight=937&originWidth=1899&size=577263&status=done&style=shadow&width=1899)
+
+
+## 四、通过文件管理配置
+在插件配置中，我们在 `new SentryWebpackPlugin({})` 中固定设置了 `authToken` `url` `org` `project` 几个参数。
+
+
+另一种方式，可以借助 `@sentry/cli` 从配置文件中加载。
+
+
+### 安装依赖
+```shell
+$ yarn add @sentry/cli -D
+```
+
+
+### 新建 `.sentryclirc` 文件
+这个文件就是 `@sentry/cli` 将要加载的配置文件，建议直接放在根目录下。
+
+
+文件内容如下（对应值请根据自己项目修改）：
+
+
+```
+[defaults]
+url=your-url
+org=your-org
+project=your-project
+ 
+[auth]
+token=your-token
+```
+
+
+这里需要注意 `token` ：
+
+- 名称不是authToken
+- 建议放在服务器上，通过读取环境变量来设置
+
+
+
+### 修改插件配置
+修改 webpack 配置：
+```javascript
+// webpack.prod.js
+module.exports = {
+  plugins: [
+    new SentryWebpackPlugin({
+      // 首先会通过 sentry-cli 加载根目录中的 .sentryclirc 配置，然后再配置以下内容
+      // 因此这里直接删除配置文件中已有的配置项即可
+      include: './dist',
+      ignore: ['node_modules'],
+      release: 'v1.0.0',
+      urlPrefix: '~/',
+    }),
+  ],
+};
+```
+
+
+## 五、自动上传 or 手动上传
+除了以上通过 webpack 插件自动上传 .map 之外，还可以用 `sentry-cli` 手动上传。有兴趣的同学研究一下。
+
+
+不过，还是推荐自动上传，操作错误率低！方便！
+
+
+## 六、删除 .map 文件
+生成的 .map 文件，如果保留在服务器，会存在安全问题。
+
+
+因此，当上传到 sentry 之后，建议把服务器上的 .map 文件删除。
+
+
+```json
+// package.json
+{
+  "scripts": {
+    ...
+    "delete:map": "rimraf dist/js/*.map"
+  }
+}
+```
+
+
+```shell
+$ yarn delete:map
+```
+![删除map文件.png](https://cdn.nlark.com/yuque/0/2021/png/12735713/1616859441269-7732431b-39ec-4009-bc94-c3f5bb2cf393.png#align=left&display=inline&height=220&margin=%5Bobject%20Object%5D&name=%E5%88%A0%E9%99%A4map%E6%96%87%E4%BB%B6.png&originHeight=220&originWidth=791&size=15759&status=done&style=shadow&width=791)
+## 七、重点避坑项总结
+
+- sourceMap一定要开启，`devtool: 'source-map'`，uglifyjs-webpack-plugin 设置 `sourceMap: true`
+- @sentry/webpack-plugin 要设置 `release` 参数指定版本，同时 `Sentry.init` 版本号需要保持一致
+- @sentry/webpack-plugin `urlPrefix` 参数一定要配置正确
+- 上传成功后记得删除 .map 文件
+
+
+
