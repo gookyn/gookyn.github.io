@@ -6,54 +6,83 @@ categories: React
 
 [react-todo](https://github.com/liujinge/react-todo)
 
-### 开发环境
+
+## 开发环境
+
+
 在搭建过程中，可以使用 npm 构建依赖。因此首先需要 [node.js](https://nodejs.org/zh-cn/)，直接下载安装即可。
 
-### 新建项目
+
+## 新建项目
+
+
 新建一个项目，结构如下：
 
-![](/images/零脚手架搭建React/项目结构-初始化.png)
 
-<!-- more -->
+![项目结构-初始化.png](https://cdn.nlark.com/yuque/0/2021/png/12735713/1616915504696-e04c70d7-c752-453f-9f86-025095bdb6f1.png)
+
 
 app: 开发目录
-  * components 用来存放组件
-    * Hello.js 第一个组件文件
-  * main.js 整个项目的入口文件
-  
-build: 打包后的目录
-  * index.html 是最终要展示的页面
-  ```
-	<!DOCTYPE html>
-	<html>
-	  <head>
-	      <meta charset="UTF-8">
-	      <title>react</title>
-	  </head>
-	  <body>
-	      <div id="root">
 
-	      </div>
-	  </body>
-	  <script type="text/javascript" src="bundle.js"></script>
-	</html>  
-  ```
-  
-  * bundle.js：打包后的js文件
-  
-### 创建 package.json
-命令行窗口进入项目根目录，执行以下命令生成  package.json 文件
+
+- components 用来存放组件
+   - Hello.js 第一个组件文件
+- main.js 整个项目的入口文件
+
+
+
+build: 打包后的目录
+
+
+- index.html 是最终要展示的页面
+
+
+
+```html
+  <!DOCTYPE html>
+  <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>react</title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+    </body>
+    <script type="text/javascript" src="bundle.js"></script>
+  </html>
 ```
+
+
+- bundle.js：打包后的js文件
+
+
+
+## 创建 package.json
+
+
+命令行窗口进入项目根目录，执行以下命令生成  package.json 文件
+
+
+```shell
 npm init
 ```
+
+
 执行过程中需要输入基本信息，也可以一路默认回车
 
-![](/images/零脚手架搭建React/init.png)
+
+![init.png](https://cdn.nlark.com/yuque/0/2021/png/12735713/1616915657448-020258cc-7d5a-4a5d-86ec-bd4841750960.png)
+
 
 完成后即可在根目录中看到
 
-### 安装依赖
-```
+
+## 安装依赖
+
+
+```shell
 npm install --save react
 
 npm install --save react-dom  处理virtual DOM
@@ -65,10 +94,14 @@ npm install --save-dev webpack-dev-server  支持热加载
 npm install --save-dev babel-core babel-loader  babel-preset-es2015 babel-preset-react  安装babel相关，编译js
 ```
 
-### 配置 webpack
+
+## 配置 webpack
+
+
 在根目录下新增 webpack.config.js
 
-```
+
+```javascript
 var webpack = require('webpack'); //引入Webpack模块供我们调用，这里只能使用ES5语法，使用ES6语法会报错
 
 //__dirname是node.js中的一个全局变量，它指向当前执行脚本所在的目录
@@ -105,19 +138,27 @@ module.exports = { //注意这里是exports不是export
 };
 ```
 
-### 配置 package.json
+
+## 配置 package.json
+
+
 修改 package.json，在 `scripts` 添加以下代码，实现热加载:
 
-```
+
+```json
 "scripts": {
   "start": "webpack",
   "dev": "webpack-dev-server"
 }
 ```
 
-### 配置 Babel
+
+## 配置 Babel
+
+
 Babel 可以在 `webpack.config.js` 中配置，但由于其配置项比较复杂，因此可以放在一个单独的文件中，webpack会自动调用.babelrc里的babel配置选项。
 在项目根目录下新建 `.babelrc` 文件，注意该文件名只有后缀。
+
 
 ```
 //.babelrc
@@ -129,10 +170,14 @@ Babel 可以在 `webpack.config.js` 中配置，但由于其配置项比较复�
 }
 ```
 
-### 编辑 React组件并引入
+
+## 编辑 React组件并引入
+
+
 编辑 `app/components/Hello.js`
 
-```
+
+```javascript
 import React from 'react';
 
 class Hello extends React.Component {
@@ -146,9 +191,11 @@ class Hello extends React.Component {
 export default Hello;
 ```
 
+
 编辑 `app/main.js`
 
-```
+
+```javascript
 import React from 'react';
 import ReactDom from 'react-dom';
 import Hello from './components/Hello.js';
@@ -159,16 +206,19 @@ ReactDom.render(
 );
 ```
 
-### 启动项目
-```
+
+## 启动项目
+
+
+```shell
 npm run dev
 ```
 
+
 Hello React！
 
+---
 
-{% note %}
-更多可以参考这两篇文章：
+参考：
 [从零开始，教你用Webpack构建React基础工程](http://www.jianshu.com/p/4df92c335617)
 [从零开始搭建一个react项目](http://www.jianshu.com/p/324fd1c124ad)
-{% endnote %}
